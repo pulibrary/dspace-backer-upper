@@ -32,7 +32,7 @@ module Dspace
     end
 
     def ark_mapping_path
-      Rails.root.join("scripts", "dspace_mms_to_ark.csv")
+      Pathname.new(__dir__).join("../../dspace_mms_to_ark.csv")
     end
 
     def ark_mapping

@@ -2,6 +2,7 @@ require "bundler/setup"
 Bundler.require
 require_relative "autoloader"
 require "active_support/all"
+require "csv"
 class DspaceBackup
   def self.download_path
     if ENV["DSPACE_DOWNLOAD_PATH"]
