@@ -3,8 +3,11 @@
 source "https://rubygems.org"
 
 gem "standard"
+gem "faraday"
+gem "faraday-retry"
+gem "parallel"
 
 group :development, :test do
-  gem 'rspec'
+  gem "rspec"
 end
 # gem "rails"
