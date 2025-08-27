@@ -12,7 +12,7 @@ class DownloadCLI < Thor
   option :download_path, type: :string, desc: "Path to download to"
   def download_collection(handle)
     if handle.to_s.start_with?("88435")
-      ENV["DSPACE_DOWNLOAD_PATH"] = options["dspace_download_path"]
+      ENV["DSPACE_DOWNLOAD_PATH"] = options["download_path"]
       Dspace::Downloader.new(collection_handle: handle, dspace_token: options["dspace_token"]).download_all!
     else
       puts "You must pass a HANDLE (e.g 88435/dsp01bg257f09p)"
