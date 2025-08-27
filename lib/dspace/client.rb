@@ -10,7 +10,8 @@ class Dspace::Client
     @client ||= Faraday.new(
       "https://dataspace.princeton.edu",
       params: {
-        "expand" => "all"
+        "expand" => "all",
+        "limit" => "500000"
       },
       headers: {
         "rest-dspace-token" => dspace_token

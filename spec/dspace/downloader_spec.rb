@@ -15,25 +15,25 @@ RSpec.describe Dspace::Downloader do
   let(:collection_fixture_path) { root_path.join("spec", "fixtures", "dspace", "monographic_collection.json") }
   let(:collection_fixture) { File.read(collection_fixture_path) }
   let(:collection_assigned_name) { "dsp016q182k16g" }
-  let(:collection_url) { "https://dataspace.princeton.edu/rest/handle/88435/#{collection_assigned_name}?expand=all" }
+  let(:collection_url) { "https://dataspace.princeton.edu/rest/handle/88435/#{collection_assigned_name}?expand=all&limit=500000" }
   let(:item_assigned_name) { "dsp012801pg38m" }
   let(:item_handle) { "88435/#{item_assigned_name}" }
   let(:item_mms_id) { "9971957363506421" }
 
   def stub_item(item_number)
-    stub_request(:get, "https://dataspace.princeton.edu/rest/items/#{item_number}?expand=all")
+    stub_request(:get, "https://dataspace.princeton.edu/rest/items/#{item_number}?expand=all&limit=500000")
       .to_return(status: 200, body: File.read(root_path.join("spec", "fixtures", "dspace", "#{item_number}.json")), headers: {"Content-Type" => "application/json"})
   end
 
   def stub_collection(item_number)
-    stub_request(:get, "https://dataspace.princeton.edu/rest/collections/#{item_number}?expand=all")
+    stub_request(:get, "https://dataspace.princeton.edu/rest/collections/#{item_number}?expand=all&limit=500000")
       .to_return(status: 200, body: File.read(root_path.join("spec", "fixtures", "dspace", "#{item_number}.json")), headers: {"Content-Type" => "application/json"})
   end
 
   let(:download_path) { DspaceBackup.download_path }
 
   before do
-    stub_request(:get, "https://dataspace.princeton.edu/rest/handle/88435/dsp016q182k16g?expand=all")
+    stub_request(:get, "https://dataspace.princeton.edu/rest/handle/88435/dsp016q182k16g?expand=all&limit=500000")
       .to_return(status: 200, body: File.read(root_path.join("spec", "fixtures", "dspace", "monographic_collection.json")), headers: {"Content-Type" => "application/json"})
     stub_item("1672")
     stub_item("2595")
@@ -99,7 +99,7 @@ RSpec.describe Dspace::Downloader do
     let(:handle) { "88435/dsp01kh04dp74g" }
     let(:token) { "bla" }
     before do
-      stub_request(:get, "https://dataspace.princeton.edu/rest/handle/88435/dsp01kh04dp74g?expand=all")
+      stub_request(:get, "https://dataspace.princeton.edu/rest/handle/88435/dsp01kh04dp74g?expand=all&limit=500000")
         .to_return(status: 200, body: File.read(root_path.join("spec", "fixtures", "dspace", "serials_collection.json")), headers: {"Content-Type" => "application/json"})
       stub_collection("2186")
       stub_item("88499")
@@ -200,7 +200,7 @@ RSpec.describe Dspace::Downloader do
 
     context "when there are no bitstreams" do
       let(:item_number) { 1672 }
-      let(:item_url) { "https://dataspace.princeton.edu/rest/items/#{item_number}?expand=all" }
+      let(:item_url) { "https://dataspace.princeton.edu/rest/items/#{item_number}?expand=all&limit=500000" }
       let(:item_fixture) do
         {
           "id" => item_number,

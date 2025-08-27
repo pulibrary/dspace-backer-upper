@@ -10,9 +10,12 @@ gem "faraday-retry"
 gem "parallel"
 gem "zeitwerk"
 gem "logger"
+gem "thor"
 
 group :development, :test do
   gem "rspec"
   gem "webmock"
+  gem "pry"
+  gem "pry-byebug"
 end
 # gem "rails"

@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require_relative "lib/dspace_backup"
+require "thor"
+require "pry-byebug"
+
+class DownloadCLI < Thor
+  def self.exit_on_failure?
+    true
+  end
+  desc "download_collection HANDLE", "Downloads a DSpace collection HANDLE (e.g 88435/dsp01bg257f09p) to a directory for ingest into Figgy"
+  option :dspace_token, type: :string, desc: "DSpace token to use for accessing the API", required: true
+  option :download_path, type: :string, desc: "Path to download to"
+  def download_collection(handle)
+    if handle.to_s.start_with?("88435")
+      ENV["DSPACE_DOWNLOAD_PATH"] = options["dspace_download_path"]
+      Dspace::Downloader.new(collection_handle: handle, dspace_token: options["dspace_token"]).download_all!
+    else
+      puts "You must pass a HANDLE (e.g 88435/dsp01bg257f09p)"
+    end
+  end
+end
+DownloadCLI.start(ARGV)
