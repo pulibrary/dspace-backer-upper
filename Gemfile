@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 gem "activesupport"
+gem "simplecov", require: false, group: :test
 gem "standard"
 gem "faraday"
 gem "faraday-retry"

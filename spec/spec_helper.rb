@@ -13,9 +13,14 @@
 # it.
 #
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require "simplecov"
+SimpleCov.minimum_coverage 100
+SimpleCov.start do
+  add_filter "/spec"
+end
 require_relative "../lib/dspace_backup"
 Dir[Pathname.new(__dir__).join("support", "**", "*.rb")].sort.each { |file| require file }
-ENV["APP_ENV"] = "test"
+ENV["DSPACE_DOWNLOAD_PATH"] = Pathname.new(__dir__).join("../tmp/dspace_download_test").to_s
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
